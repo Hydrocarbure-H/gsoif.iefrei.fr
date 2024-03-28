@@ -3,10 +3,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
     fetch(`${apiUrl}/products`)
         .then(response => response.json())
-        .then(produits => {
-            console.log(produits);
+        .then(products =>
+        {
+            //     Insert into <ul class="items" id="alcool-list">
+            //             <!-- Les items d'alcool seront ajoutés ici -->
+            //         </ul>
+            const ul_alcool = document.getElementById('alcool-list');
+            const ul_soft = document.getElementById('soft-list');
+            products.forEach(product => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <input type="checkbox" name="product" value="${product.id}" id="product-${product.id}">
+                    <label for="product-${product.id}">${product.name}</label>
+                `;
+                if (product.category === 'Alcool')
+                {
+                    ul_alcool.appendChild(li);
+                }
+                else if (product.category === 'Soft')
+                {
+                    ul_soft.appendChild(li);
+                }
+            });
         })
-        .catch(error => console.error('Erreur lors de la récupération des produits:', error));
+        .catch(error => console.error('Erreur lors de la récupération des products:', error));
 
     document.getElementById('form-choix').addEventListener('submit', function(e) {
         e.preventDefault();
