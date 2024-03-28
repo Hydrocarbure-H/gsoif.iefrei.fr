@@ -15,14 +15,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
-# Modèle pour les products
 class Produit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     category = db.Column(db.String(80), nullable=False)
 
 
-# Modèle pour les participations des utilisateurs
 class Engagement(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name_user = db.Column(db.String(80), nullable=False)
@@ -46,7 +44,6 @@ def add_participation():
     return jsonify({'message': 'Choix enregistré avec succès'}), 201
 
 
-# Route pour récupérer la liste des participations
 @app.route('/engagement', methods=['GET'])
 def get_participations():
     participations = Engagement.query.all()
