@@ -14,6 +14,16 @@ document.addEventListener('DOMContentLoaded', function() {
             container.innerHTML += `<li>${product}</li>`;
         });
         container.innerHTML += '</ul>';
+
+        // Add a button to reset the choice
+        const button = document.createElement('button');
+        button.innerHTML = 'Réinitialiser';
+        button.onclick = function() {
+            localStorage.removeItem('products');
+            localStorage.removeItem('date');
+            location.reload();
+        };
+        container.appendChild(button);
         return;
     }
 
@@ -88,6 +98,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 // THE DATE is only the current dd/mm/yyyy
                 localStorage.setItem('date', new Date().toLocaleString().split(' ')[0]);
                 container.innerHTML += '</ul>';
+                // Add a button to reset the choice
+                const button = document.createElement('button');
+                button.innerHTML = 'Réinitialiser';
+                button.onclick = function() {
+                    localStorage.removeItem('products');
+                    localStorage.removeItem('date');
+                    location.reload();
+                };
+                container.appendChild(button);
             })
             .catch((error) => {
                 console.error('Erreur:', error);

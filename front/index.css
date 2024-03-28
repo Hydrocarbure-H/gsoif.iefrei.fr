@@ -32,6 +32,7 @@ input[type="text"], button {
 }
 button {
     background-color: #4CAF50;
+    margin-top: 20px;
     color: white;
     border: none;
     cursor: pointer;
