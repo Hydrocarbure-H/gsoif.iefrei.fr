@@ -38,24 +38,38 @@ document.addEventListener('DOMContentLoaded', function() {
             products.forEach(product => {
                 const li = document.createElement('li');
                 li.innerHTML = `
-                    <input type="checkbox" name="product" value="${product.id}" id="product-${product.id}">
-                    <label for="product-${product.id}">
-                        ${product.name} 
-                         (${product.engagement_count} <ion-icon class="icon" name="people-outline"></ion-icon>)
-                    </label>
-                `;
-                if (product.category === 'Alcool')
-                {
+        <input type="checkbox" name="product" value="${product.id}" id="product-${product.id}" data-engagement-count="${product.engagement_count}">
+        <label for="product-${product.id}">
+            ${product.name}
+            <span id="count-${product.id}">(${product.engagement_count} <ion-icon class="icon" name="people-outline"></ion-icon>)</span>
+        </label>
+    `;
+                if (product.category === 'Alcool') {
                     ul_alcool.appendChild(li);
-                }
-                else if (product.category === 'Soft')
-                {
+                } else if (product.category === 'Soft') {
                     ul_soft.appendChild(li);
-                }
-                else if (product.category === 'Crounch')
-                {
+                } else if (product.category === 'Crounch') {
                     ul_crounch.appendChild(li);
                 }
+
+                // Ajouter un gestionnaire d'événements pour chaque checkbox
+                const checkbox = li.querySelector(`input[type=checkbox]`);
+                checkbox.addEventListener('change', function() {
+                    const engagementCountElement = document.getElementById(`count-${this.value}`);
+                    let engagementCount = parseInt(this.dataset.engagementCount);
+
+                    if (this.checked) {
+                        engagementCount++; // Incrémenter le compteur si la case est cochée
+                    } else {
+                        engagementCount--; // Décrémenter le compteur si la case est décochée
+                    }
+
+                    // Mettre à jour l'attribut pour refléter le changement
+                    this.dataset.engagementCount = engagementCount;
+
+                    // Mettre à jour le texte
+                    engagementCountElement.innerHTML = `(${engagementCount} <ion-icon class="icon" name="people-outline"></ion-icon>)`;
+                });
             });
         })
         .catch(error => console.error('Erreur lors de la récupération des products:', error));
@@ -99,14 +113,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 localStorage.setItem('date', new Date().toLocaleString().split(' ')[0]);
 
                 container.innerHTML += '</ul>';
-                const button = document.createElement('button');
-                button.innerHTML = 'Réinitialiser';
-                button.onclick = function() {
-                    localStorage.removeItem('products');
-                    localStorage.removeItem('date');
-                    location.reload();
-                };
-                container.appendChild(button);
+                // const button = document.createElement('button');
+                // button.innerHTML = 'Réinitialiser';
+                // button.onclick = function() {
+                //     localStorage.removeItem('products');
+                //     localStorage.removeItem('date');
+                //     location.reload();
+                // };
+                // container.appendChild(button);
             })
             .catch((error) => {
                 console.error('Erreur:', error);
