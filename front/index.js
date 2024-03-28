@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         container.innerHTML += '</ul>';
 
-        // Add a button to reset the choice
         const button = document.createElement('button');
         button.innerHTML = 'Réinitialiser';
         button.onclick = function() {
@@ -26,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
         container.appendChild(button);
         return;
     }
-
 
     const apiUrl = 'http://127.0.0.1:5000';
 
@@ -41,7 +39,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const li = document.createElement('li');
                 li.innerHTML = `
                     <input type="checkbox" name="product" value="${product.id}" id="product-${product.id}">
-                    <label for="product-${product.id}">${product.name}</label>
+                    <label for="product-${product.id}">
+                        ${product.name} 
+                         (${product.engagement_count} <ion-icon class="icon" name="people-outline"></ion-icon>)
+                    </label>
                 `;
                 if (product.category === 'Alcool')
                 {
@@ -95,10 +96,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
                 localStorage.setItem('products', JSON.stringify(products));
-                // THE DATE is only the current dd/mm/yyyy
                 localStorage.setItem('date', new Date().toLocaleString().split(' ')[0]);
+
                 container.innerHTML += '</ul>';
-                // Add a button to reset the choice
                 const button = document.createElement('button');
                 button.innerHTML = 'Réinitialiser';
                 button.onclick = function() {

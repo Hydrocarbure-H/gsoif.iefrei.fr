@@ -34,8 +34,15 @@ def execute_sql(sql, args=None):
 
 @app.route('/products', methods=['GET'])
 def get_products():
-    result = execute_sql('SELECT id, name, category FROM product')
-    products = [{'id': row[0], 'name': row[1], 'category': row[2]} for row in result]
+    sql = """
+    SELECT p.id, p.name, p.category, COUNT(e.id) as engagement_count
+    FROM product p
+    LEFT JOIN engagement e ON p.id = e.product_id
+    GROUP BY p.id
+    ORDER BY COUNT(e.id) ASC, p.id
+    """
+    result = execute_sql(sql)
+    products = [{'id': row[0], 'name': row[1], 'category': row[2], 'engagement_count': row[3]} for row in result]
     return jsonify(products)
 
 

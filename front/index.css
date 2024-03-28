@@ -30,6 +30,13 @@ input[type="text"], button {
     border: 1px solid #ddd;
     box-sizing: border-box;
 }
+
+.icon
+{
+    width: 15px;
+    height: 15px;
+    vertical-align: middle;
+}
 button {
     background-color: #4CAF50;
     margin-top: 20px;
