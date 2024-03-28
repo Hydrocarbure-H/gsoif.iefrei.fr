@@ -1,4 +1,23 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+    // Check if the user has already made a choice
+    if (localStorage.getItem('products') !== null && localStorage.getItem('date') === new Date().toLocaleString().split(' ')[0])
+    {
+        container = document.getElementById('container')
+        container.innerHTML = `
+            <h1>Merci !</h1>
+            <p>Vous avez choisi les produits suivants :</p>
+            <ul>
+        `;
+        products = JSON.parse(localStorage.getItem('products'));
+        products.forEach(product => {
+            container.innerHTML += `<li>${product}</li>`;
+        });
+        container.innerHTML += '</ul>';
+        return;
+    }
+
+
     const apiUrl = 'http://127.0.0.1:5000';
 
     fetch(`${apiUrl}/products`)
@@ -49,8 +68,26 @@ document.addEventListener('DOMContentLoaded', function() {
             body: JSON.stringify(data)
         })
             .then(response => response.json())
-            .then(data => {
-                console.log('Succès:', data);
+            .then(data =>
+            {
+                container = document.getElementById('container')
+                container.innerHTML = `
+                    <h1>Merci !</h1>
+                    <p>Vous avez choisi les produits suivants :</p>
+                    <ul>
+                `;
+                products = [];
+                data.forEach(product => {
+                    if (product.name_user === username)
+                    {
+                        container.innerHTML += `<li>${product.product_name}</li>`;
+                        products.push(product.product_name);
+                    }
+                });
+                localStorage.setItem('products', JSON.stringify(products));
+                // THE DATE is only the current dd/mm/yyyy
+                localStorage.setItem('date', new Date().toLocaleString().split(' ')[0]);
+                container.innerHTML += '</ul>';
             })
             .catch((error) => {
                 console.error('Erreur:', error);
