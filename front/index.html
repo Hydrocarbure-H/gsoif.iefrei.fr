@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qui amène quoi ?</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div class="container">
+    <h1>T'amènes quoi ?</h1>
+
+    <!-- Catégorie Alcool -->
+    <div class="category">
+        <h2>Alcool</h2>
+        <ul class="items" id="alcool-list">
+            <!-- Les items d'alcool seront ajoutés ici -->
+        </ul>
+    </div>
+
+    <!-- Catégorie Soft -->
+    <div class="category">
+        <h2>Soft</h2>
+        <ul class="items" id="soft-list">
+            <!-- Les items de soft seront ajoutés ici -->
+        </ul>
+    </div>
+
+    <!-- Formulaire de soumission -->
+    <form id="form-choix">
+        <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" required>
+        </div>
+        <button type="submit">J'amène ça !</button>
+    </form>
+
+</div>
+
+<!-- Inclusion de index.js ici -->
+<script src="index.js"></script>
+</body>
+</html>

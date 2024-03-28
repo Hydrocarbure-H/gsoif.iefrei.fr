@@ -15,7 +15,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
-class Produit(db.Model):
+class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     category = db.Column(db.String(80), nullable=False)
@@ -30,7 +30,7 @@ class Engagement(db.Model):
 
 @app.route('/products', methods=['GET'])
 def get_products():
-    products = Produit.query.all()
+    products = Product.query.all()
     return jsonify([{'id': prod.id, 'name': prod.name, 'category': prod.category} for prod in products])
 
 
@@ -52,5 +52,7 @@ def get_participations():
 
 
 if __name__ == '__main__':
-    db.create_all()
-    app.run(host='0.0.0.0', port=5000)
+    with app.app_context():
+        print('Creating tables')
+        db.create_all()
+        app.run(debug=True)
