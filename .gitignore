@@ -164,3 +164,9 @@ back/.idea/inspectionProfiles/Project_Default.xml
 back/.idea/misc.xml
 back/.idea/modules.xml
 back/.idea/vcs.xml
+front/.idea/front.iml
+front/.idea/inspectionProfiles/Project_Default.xml
+front/.idea/modules.xml
+front/.idea/vcs.xml
+back/.idea/dataSources.xml
+back/.idea/sqldialects.xml
