@@ -65,3 +65,50 @@ button:hover {
 .selected {
     background-color: #4CAF50;
 }
+
+input[type="checkbox"] {
+    display: none;
+}
+
+input[type="checkbox"] + label {
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 20px;
+}
+
+input[type="checkbox"] + label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 15px;
+    height: 15px;
+    border: 2px solid #fff;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    transition: background-color 0.2s;
+}
+
+input[type="checkbox"]:checked + label::before {
+    background-color: #4CAF50;
+}
+
+input[type="checkbox"]:checked + label {
+    color: #fff;
+}
+
+input[type="checkbox"] + label {
+    color: #fff;
+    font-weight: normal;
+}
+
+label {
+    display: block;
+    margin-left: 40px;
+}
+
+#alcool-list li, #soft-list li {
+    margin-bottom: 10px;
+}

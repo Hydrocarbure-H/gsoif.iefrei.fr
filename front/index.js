@@ -5,9 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(products =>
         {
-            //     Insert into <ul class="items" id="alcool-list">
-            //             <!-- Les items d'alcool seront ajoutés ici -->
-            //         </ul>
             const ul_alcool = document.getElementById('alcool-list');
             const ul_soft = document.getElementById('soft-list');
             products.forEach(product => {
