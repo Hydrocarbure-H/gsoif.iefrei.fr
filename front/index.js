@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             const ul_alcool = document.getElementById('alcool-list');
             const ul_soft = document.getElementById('soft-list');
+            const ul_crounch = document.getElementById('crounch-list');
             products.forEach(product => {
                 const li = document.createElement('li');
                 li.innerHTML = `
@@ -21,6 +22,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 {
                     ul_soft.appendChild(li);
                 }
+                else if (product.category === 'Crounch')
+                {
+                    ul_crounch.appendChild(li);
+                }
             });
         })
         .catch(error => console.error('Erreur lors de la récupération des products:', error));
@@ -28,12 +33,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('form-choix').addEventListener('submit', function(e) {
         e.preventDefault();
 
-        const nomUser = document.getElementById('nom').value;
-        const produitsChoisis = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(checkbox => parseInt(checkbox.value));
+        const username = document.getElementById('nom').value;
+        const chosen_products = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(checkbox => parseInt(checkbox.value));
 
         const data = {
-            nom: nomUser,
-            produits: produitsChoisis
+            name: username,
+            products: chosen_products
         };
 
         fetch(`${apiUrl}/engagement`, {

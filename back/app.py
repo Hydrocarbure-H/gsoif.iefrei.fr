@@ -15,13 +15,21 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://' + DB_USER + ':' + DB_PASSWORD + '@localhost:5432/gsoif'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-CORS(app)
+# Allow *
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 
-def execute_sql(sql, args=()):
+def execute_sql(sql, args=None):
     with db.engine.connect() as connection:
-        result = connection.execute(text(sql), args)
-        result = result.fetchall()
+        if args is None:
+            result = connection.execute(text(sql))
+        else:
+            result = connection.execute(text(sql), args)
+        connection.commit()  # Assurez-vous de commiter la transaction ici
+        try:
+            result = result.fetchall()
+        except:
+            pass
         return result
 
 
@@ -35,10 +43,23 @@ def get_products():
 @app.route('/engagement', methods=['POST'])
 def add_engagement():
     data = request.json
-    for product_id in data['products']:
-        execute_sql('INSERT INTO engagement (name_user, product_id, date) VALUES (?, ?, ?)',
-                    (data['name'], product_id, datetime.utcnow()))
-    db.session.commit()  # Assurez-vous que la transaction est bien commitée
+    print(data)
+    # Préparez une liste de dictionnaires pour chaque produit
+    # format date for SQL
+    date = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+    engagements = [
+        {'name_user': data['name'], 'product_id': product_id, 'date': date}
+        for product_id in data['products']
+    ]
+
+    # Exécutez une requête pour chaque engagement
+    for engagement in engagements:
+        print(engagement)
+        execute_sql("""
+            INSERT INTO engagement (name_user, product_id, date)
+            VALUES (:name_user, :product_id, :date)
+            """, engagement)
+    db.session.commit()
     return jsonify({'message': 'Choix enregistré avec succès'}), 201
 
 
