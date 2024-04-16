@@ -1,8 +1,7 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     // Check if the user has already made a choice
-    if (localStorage.getItem('products') !== null && localStorage.getItem('date') === new Date().toLocaleString().split(' ')[0])
-    {
+    if (localStorage.getItem('products') !== null && localStorage.getItem('date') === new Date().toLocaleString().split(' ')[0]) {
         container = document.getElementById('container')
         container.innerHTML = `
             <h1>Merci !</h1>
@@ -17,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const button = document.createElement('button');
         button.innerHTML = 'Réinitialiser';
-        button.onclick = function() {
+        button.onclick = function () {
             localStorage.removeItem('products');
             localStorage.removeItem('date');
             location.reload();
@@ -26,12 +25,11 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    const apiUrl = 'http://127.0.0.1:5000';
+    const apiUrl = 'http://192.168.1.69:5000';
 
     fetch(`${apiUrl}/products`)
         .then(response => response.json())
-        .then(products =>
-        {
+        .then(products => {
             const ul_alcool = document.getElementById('alcool-list');
             const ul_soft = document.getElementById('soft-list');
             const ul_crounch = document.getElementById('crounch-list');
@@ -54,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Ajouter un gestionnaire d'événements pour chaque checkbox
                 const checkbox = li.querySelector(`input[type=checkbox]`);
-                checkbox.addEventListener('change', function() {
+                checkbox.addEventListener('change', function () {
                     const engagementCountElement = document.getElementById(`count-${this.value}`);
                     let engagementCount = parseInt(this.dataset.engagementCount);
 
@@ -74,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => console.error('Erreur lors de la récupération des products:', error));
 
-    document.getElementById('form-choix').addEventListener('submit', function(e) {
+    document.getElementById('form-choix').addEventListener('submit', function (e) {
         e.preventDefault();
 
         const username = document.getElementById('nom').value;
@@ -93,8 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
             body: JSON.stringify(data)
         })
             .then(response => response.json())
-            .then(data =>
-            {
+            .then(data => {
                 container = document.getElementById('container')
                 container.innerHTML = `
                     <h1>Merci !</h1>
@@ -103,8 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
                 products = [];
                 data.forEach(product => {
-                    if (product.name_user === username)
-                    {
+                    if (product.name_user === username) {
                         container.innerHTML += `<li>${product.product_name}</li>`;
                         products.push(product.product_name);
                     }
