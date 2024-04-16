@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Qui amène quoi ?</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
@@ -48,6 +48,6 @@
 </div>
 
 <!-- Inclusion de index.js ici -->
-<script src="index.js"></script>
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
 </html>

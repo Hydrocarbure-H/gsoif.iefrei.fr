@@ -1,11 +1,11 @@
-from dotenv import load_dotenv
-from flask import Flask, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
 import os
 from datetime import datetime
 
-from sqlalchemy import text
+from dotenv import load_dotenv
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import text
 
 load_dotenv()
 DB_USER = os.getenv('DB_USER')
@@ -18,18 +18,31 @@ db = SQLAlchemy(app)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 
+class SQLAlchemyError:
+    pass
+
+
 def execute_sql(sql, args=None):
-    with db.engine.connect() as connection:
-        if args is None:
-            result = connection.execute(text(sql))
-        else:
-            result = connection.execute(text(sql), args)
-        connection.commit()
-        try:
-            result = result.fetchall()
-        except:
-            pass
-        return result
+    try:
+        with db.engine.connect() as connection:
+            if args is None:
+                result = connection.execute(text(sql))
+            else:
+                result = connection.execute(text(sql), args)
+
+            connection.commit()
+
+            try:
+                result = result.fetchall()
+            except Exception as e:
+                app.logger.info(f"No results to fetch: {str(e)}")
+                result = None
+
+            return result
+
+    except Exception as e:
+        app.logger.error(f"An error occurred: {str(e)}")
+        raise e
 
 
 @app.route('/products', methods=['GET'])
@@ -74,6 +87,11 @@ def get_engagements():
     return jsonify(engagements)
 
 
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+
 # CREATE TABLE IF NOT EXISTS gsoif.product (id INTEGER PRIMARY KEY, name TEXT, category TEXT)
 # CREATE TABLE IF NOT EXISTS engagement (
 #     id SERIAL PRIMARY KEY,
@@ -83,5 +101,31 @@ def get_engagements():
 # FOREIGN KEY (product_id) REFERENCES product(id)
 # );
 
+def create_tables():
+    sql = """
+    CREATE TABLE IF NOT EXISTS product (
+        id SERIAL PRIMARY KEY,
+        name TEXT,
+        category TEXT
+    );
+    CREATE TABLE IF NOT EXISTS engagement (
+        id SERIAL PRIMARY KEY,
+        name_user TEXT,
+        product_id INTEGER,
+        date TEXT,
+        FOREIGN KEY (product_id) REFERENCES product(id)
+    );
+    """
+    app.logger.info("Creating tables")
+    try:
+        execute_sql(sql)
+    except Exception as e:
+        app.logger.error(f"An error occurred: {str(e)}")
+        raise e
+
+
+with app.app_context():
+    create_tables()
+
 if __name__ == '__main__':
-    app.run(debug=False, port=5000)
+    app.run(debug=True)
