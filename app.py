@@ -88,6 +88,7 @@ def fill_tables():
         {'name': 'Ice Tea', 'category': 'Soft'},
         {'name': 'Jus d\'orange', 'category': 'Soft'},
         {'name': 'Jus de pomme', 'category': 'Soft'},
+        {'name': 'Jus d\'ananas', 'category': 'Soft'},
         {'name': 'Jus multifruit', 'category': 'Soft'},
         {'name': 'Jus de citron', 'category': 'Soft'},
         {'name': 'Captain Morgan', 'category': 'Alcool'},
@@ -98,8 +99,10 @@ def fill_tables():
         {'name': 'Bières', 'category': 'Alcool'},
         {'name': 'Rhum', 'category': 'Alcool'},
         {'name': 'Gin', 'category': 'Alcool'},
+        {'name': 'Rosé', 'category': 'Alcool'},
         {'name': 'Chips', 'category': 'Crounch'},
         {'name': 'Cacahuètes', 'category': 'Crounch'},
+        {'name': 'Biscuits apéro', 'category': 'Crounch'},
         {'name': 'Pizzas', 'category': 'Crounch'}
     ]
 

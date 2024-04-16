@@ -19,6 +19,7 @@ function initializePage() {
  * @returns {boolean} True if choices exist and date matches, otherwise false.
  */
 function userHasMadeChoice() {
+    
     return localStorage.getItem('products') !== null && localStorage.getItem('date') === new Date().toLocaleString().split(' ')[0];
 }
 
@@ -38,11 +39,11 @@ function displayUserChoices() {
         container.innerHTML += `<li>${product}</li>`;
     });
     container.innerHTML += '</ul>';
-
-    const button = document.createElement('button');
-    button.innerHTML = 'Réinitialiser';
-    button.onclick = resetChoices;
-    container.appendChild(button);
+    //
+    // const button = document.createElement('button');
+    // button.innerHTML = 'Réinitialiser';
+    // button.onclick = resetChoices;
+    // container.appendChild(button);
 }
 
 /**
