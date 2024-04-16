@@ -1,7 +1,12 @@
 # gsoif.iefrei.fr
 GSoif - Buvette pour soirée en coloc
 
-Si ça vous ennuie de devoir dire, systématiquement, qui prend quoi pour venir en soirée chez vous, ce bout de tissu codé est la solution.
+> - Je dois amener un truc ce soir ?
+> - Je sais pas attends je regarde..
+> - ...
+> - Oui, tu peux amener une bouteille de Sprite ? Ce serait top
+> - Bof, je préfèrerai amener 2 bouteilles de jus de pomme
+> - Oui mais t'as déjà Romain qui en amène 4 !
+> - ...
 
-A noter que le projet est vraiment mal codé, peu de vérifications ou de sécurité mises en place, gestion de la base de données sans ORM, un seul fichier pour tout le back....!
-Mais bon, ça dépanne :D
+Ce projet est une mini application Flask permettant de laisser les invités choisir ce qu'ils souhaitent amener à notre soirée, tout en sachant déjà ce que les autres vont prendre.
