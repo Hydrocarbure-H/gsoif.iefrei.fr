@@ -9,7 +9,7 @@ function initializePage() {
         return;
     }
 
-    const apiUrl = 'http://192.168.1.69:5000';
+    const apiUrl = 'https://gsoif.iefrei.fr';
     loadProductData(apiUrl);
     setupFormSubmission(apiUrl);
 }
