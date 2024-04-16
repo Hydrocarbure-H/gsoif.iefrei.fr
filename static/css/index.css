@@ -5,24 +5,30 @@ body {
     margin: 0;
     padding: 0;
 }
+
 .container {
     width: calc(100% - 80px);
+    max-width: 400px;
     background-color: #7E7394;
     padding: 20px;
-    margin:  20px auto;
+    margin: 20px auto;
     border-radius: 10px;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
+
 h1 {
     text-align: center;
 }
+
 .form-group {
     margin-bottom: 10px;
 }
+
 label {
     display: block;
     margin-bottom: 5px;
 }
+
 input[type="text"], button {
     width: 100%;
     padding: 10px;
@@ -31,12 +37,12 @@ input[type="text"], button {
     box-sizing: border-box;
 }
 
-.icon
-{
+.icon {
     width: 15px;
     height: 15px;
     vertical-align: middle;
 }
+
 button {
     background-color: #4CAF50;
     margin-top: 20px;
@@ -45,20 +51,25 @@ button {
     cursor: pointer;
     font-weight: bold;
 }
+
 button:hover {
     opacity: 0.8;
 }
+
 .category {
     margin-bottom: 20px;
 }
+
 .category h2 {
     text-align: center;
     font-size: 1.2em;
 }
+
 .items {
     list-style: none;
     padding-left: 0;
 }
+
 .item {
     border: 1px solid #ddd;
     background-color: #999;
@@ -67,9 +78,11 @@ button:hover {
     border-radius: 5px;
     cursor: pointer;
 }
+
 .item:hover {
     background-color: #bbb;
 }
+
 .selected {
     background-color: #4CAF50;
 }

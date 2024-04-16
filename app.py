@@ -104,6 +104,11 @@ def fill_tables():
     ]
 
     for product in products:
+        # Check if the product already exists
+        result = execute_sql("SELECT * FROM product WHERE name = :name", product)
+        if result:
+            continue
+
         execute_sql("""
             INSERT INTO product (name, category)
             VALUES (:name, :category)
@@ -155,6 +160,11 @@ def add_engagement():
     print(f"POST /engagement (user: {request.json['name']})")
     data = request.json
     date = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+
+    # Add some checks on name:
+    if not data['name'] or len(data['name']) > 50:
+        return jsonify({'error': 'Invalid name'}), 400
+
     engagements = [
         {'name_user': data['name'], 'product_id': product_id, 'date': date}
         for product_id in data['products']
@@ -196,7 +206,7 @@ def home():
 ################## MAIN ####################
 ############################################
 with app.app_context():
-    drop_tables()
+    # drop_tables()
     create_tables()
     fill_tables()
 
