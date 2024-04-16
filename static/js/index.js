@@ -19,8 +19,37 @@ function initializePage() {
  * @returns {boolean} True if choices exist and date matches, otherwise false.
  */
 function userHasMadeChoice() {
-    
-    return localStorage.getItem('products') !== null && localStorage.getItem('date') === new Date().toLocaleString().split(' ')[0];
+    // Check if the date is in the current week or if its past
+    const savedDate = localStorage.getItem('date');
+
+    if (savedDate) {
+        const savedDateTime = new Date(savedDate);
+
+        const nextFriday = getNextFriday();
+
+        if (savedDateTime > nextFriday) {
+            resetChoices();
+        }
+    }
+    return localStorage.getItem('products') !== null;
+}
+
+/**
+ * Returns the next Friday date based on the current date.
+ * @returns {Date}
+ */
+function getNextFriday() {
+    const today = new Date();
+    const todayDay = today.getDay();
+    const fridayDay = 5;
+    const diff = (fridayDay - todayDay + 7) % 7;
+
+    const nextFriday = new Date(today);
+    nextFriday.setDate(today.getDate() + diff);
+
+    nextFriday.setHours(23, 59, 59, 999);
+
+    return nextFriday;
 }
 
 /**
@@ -52,7 +81,6 @@ function displayUserChoices() {
 function resetChoices() {
     localStorage.removeItem('products');
     localStorage.removeItem('date');
-    location.reload();
 }
 
 /**
