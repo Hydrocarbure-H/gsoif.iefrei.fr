@@ -118,10 +118,12 @@ def fill_tables():
             """, product)
 
 
-def drop_tables():
+def drop_tables(willbe):
     """
     Drop the tables
     """
+    if not willbe:
+        return
     sql = """
     DROP TABLE IF EXISTS engagement;
     DROP TABLE IF EXISTS product;
@@ -209,7 +211,7 @@ def home():
 ################## MAIN ####################
 ############################################
 with app.app_context():
-    # drop_tables()
+    drop_tables(False)
     create_tables()
     fill_tables()
 
