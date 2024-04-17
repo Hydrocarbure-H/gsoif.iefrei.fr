@@ -165,6 +165,17 @@ function setupFormSubmission(apiUrl) {
 function submitEngagement(apiUrl) {
     const username = document.getElementById('nom').value;
     const chosen_products = Array.from(document.querySelectorAll('input[type=checkbox]:checked')).map(checkbox => parseInt(checkbox.value));
+
+    if (chosen_products.length === 0) {
+        alert('Veuillez sélectionner au moins un produit.');
+        return;
+    }
+
+    // Ask for confirmation before submitting
+    if (!confirm('Êtes-vous sûr ? Vous ne pourrez pas modifier votre choix après validation.')) {
+        return;
+    }
+
     const data = {name: username, products: chosen_products};
 
     fetch(`${apiUrl}/engagement`, {
