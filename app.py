@@ -96,6 +96,8 @@ def fill_tables():
         {'name': 'Malibu', 'category': 'Alcool'},
         {'name': 'Jaeger', 'category': 'Alcool'},
         {'name': 'Martini', 'category': 'Alcool'},
+        {'name': 'Autres', 'category': 'Alcool'},
+        {'name': 'Autres', 'category': 'Crounch'},
         {'name': 'Bières', 'category': 'Alcool'},
         {'name': 'Rhum', 'category': 'Alcool'},
         {'name': 'Gin', 'category': 'Alcool'},
